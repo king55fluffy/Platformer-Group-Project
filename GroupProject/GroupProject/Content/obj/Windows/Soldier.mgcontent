@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/joshua.double/Documents/Platformer-Group-Project/GroupProject/GroupProject/Content/Soldier.png</SourceFile>
-  <SourceTime>2016-07-06T18:12:46.5233382+09:30</SourceTime>
-  <DestFile>C:/Users/joshua.double/Documents/Platformer-Group-Project/GroupProject/GroupProject/Content/bin/Windows/Soldier.xnb</DestFile>
-  <DestTime>2016-07-06T18:55:34.5119035+09:30</DestTime>
+  <SourceFile>C:/Users/alexander.niels/Documents/Group Project/GroupProject/GroupProject/Content/Soldier.png</SourceFile>
+  <SourceTime>2016-07-06T19:14:41.7830337+09:30</SourceTime>
+  <DestFile>C:/Users/alexander.niels/Documents/Group Project/GroupProject/GroupProject/Content/bin/Windows/Soldier.xnb</DestFile>
+  <DestTime>2016-07-06T19:38:50.4794021+09:30</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2016-03-22T08:22:00+10:30</ImporterTime>
   <Processor>TextureProcessor</Processor>
