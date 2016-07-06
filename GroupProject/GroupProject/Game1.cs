@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.Maps.Tiled;
-using MonoGame.Extended.ViewportAdapters;
+using MonoGame.Extended.ViewportAdapters;using System;
 
 namespace GroupProject
 {
@@ -15,6 +15,8 @@ namespace GroupProject
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Player player = null;
+
         Camera2D camera = null;
         TiledMap map = null;
         TiledTileLayer collisionLayer;
@@ -22,7 +24,37 @@ namespace GroupProject
         TiledTileLayer Collums;
         TiledTileLayer Ladder;
 
-        Player player = new Player();
+        public static int tile = 64;
+        // abitrary choice for 1m (1 tile = 1 meter)
+        public static float meter = tile;
+        // very exaggerated gravity (6x)
+        public static float gravity = meter * 9.8f * 6.0f;
+        // max vertical speed (10 tiles/sec horizontal, 15 tiles/sec vertical)
+        public static Vector2 maxVelocity = new Vector2(meter * 10, meter * 15);
+        // horizontal acceleration - take 1/2 second to reach max velocity
+        public static float acceleration = maxVelocity.X * 2;
+        // horizontal friction - take 1/6 second to stop from max velocity
+        public static float friction = maxVelocity.X * 6;
+        // (a large) instantaneous jump impulse
+        public static float jumpImpulse = meter * 1500;
+
+
+        public int ScreenWidth
+        {
+            get
+            {
+                return graphics.GraphicsDevice.Viewport.Width;
+            }
+        }
+        public int ScreenHeight
+        {
+            get
+            {
+                return graphics.GraphicsDevice.Viewport.Height;
+            }
+        }
+
+        
 
         public Game1()
         {
@@ -38,7 +70,7 @@ namespace GroupProject
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            player = new Player(this);
 
             base.Initialize();
         }
@@ -55,12 +87,16 @@ namespace GroupProject
             player.Load(Content);
 
             var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice,
-            graphics.GraphicsDevice.Viewport.Width,
-            graphics.GraphicsDevice.Viewport.Height);
+            ScreenWidth, ScreenHeight);
             camera = new Camera2D(viewportAdapter);
-            camera.Position = new Vector2(0, graphics.GraphicsDevice.Viewport.Height);
+            camera.Position = new Vector2(0, ScreenHeight);
 
             map = Content.Load<TiledMap>("level1");
+            foreach (TiledTileLayer layer in map.TileLayers)
+            {
+                if (layer.Name == "Collisions")
+                    collisionLayer = layer;
+            }
 
             // TODO: use this.Content to load your game content here
         }
@@ -86,14 +122,12 @@ namespace GroupProject
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             player.Update(deltaTime);
+            camera.Position = player.Position - new Vector2(ScreenWidth / 2, ScreenHeight / 2);
 
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+      
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -110,6 +144,35 @@ namespace GroupProject
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+        public int PixelToTile(float pixelCoord)
+        {
+            return (int)Math.Floor(pixelCoord / tile);
+        }
+        public int TileToPixel(int tileCoord)
+        {
+            return tile * tileCoord;
+        }
+        public int CellAtPixelCoord(Vector2 pixelCoords)
+        {
+            if (pixelCoords.X < 0 ||
+           pixelCoords.X > map.WidthInPixels || pixelCoords.Y < 0)
+                return 1;
+            // let the player drop of the bottom of the screen (this means death)
+            if (pixelCoords.Y > map.HeightInPixels)
+                return 0;
+            return CellAtTileCoord(
+           PixelToTile(pixelCoords.X), PixelToTile(pixelCoords.Y));
+        }
+        public int CellAtTileCoord(int tx, int ty)
+        {
+            if (tx < 0 || tx >= map.Width || ty < 0)
+                return 1;
+            // let the player drop of the bottom of the screen (this means death)
+            if (ty >= map.Height)
+                return 0;
+            TiledTile tile = collisionLayer.GetTile(tx, ty);
+            return tile.Id;
         }
     }
 }
