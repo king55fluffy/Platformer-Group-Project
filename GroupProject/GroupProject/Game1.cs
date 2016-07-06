@@ -22,7 +22,7 @@ namespace GroupProject
         TiledTileLayer Collums;
         TiledTileLayer Ladder;
 
-
+        Player player = new Player();
 
         public Game1()
         {
@@ -51,6 +51,8 @@ namespace GroupProject
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            player.Load(Content);
 
             var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice,
             graphics.GraphicsDevice.Viewport.Width,
@@ -82,7 +84,8 @@ namespace GroupProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            player.Update(deltaTime);
 
             base.Update(gameTime);
         }
@@ -102,7 +105,9 @@ namespace GroupProject
             map.Draw(spriteBatch);
             spriteBatch.End();
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            player.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

@@ -82,3 +82,4 @@ C:\Users\joshua.double\Documents\Platformer-Group-Project\GroupProject\GroupProj
 C:\Users\joshua.double\Documents\Platformer-Group-Project\GroupProject\GroupProject\bin\Windows\x86\Debug\SharpDX.RawInput.xml
 C:\Users\joshua.double\Documents\Platformer-Group-Project\GroupProject\GroupProject\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
 C:\Users\joshua.double\Documents\Platformer-Group-Project\GroupProject\GroupProject\obj\x86\Debug\GroupProject.csprojResolveAssemblyReference.cache
+C:\Users\joshua.double\Documents\Platformer-Group-Project\GroupProject\GroupProject\bin\Windows\x86\Debug\Content\Soldier.xnb
