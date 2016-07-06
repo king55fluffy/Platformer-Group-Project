@@ -4,8 +4,8 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/joshua.double/Documents/Platformer-Group-Project/GroupProject/GroupProject/Content/Level1.tmx</File>
-    <File>C:/Users/joshua.double/Documents/Platformer-Group-Project/GroupProject/GroupProject/Content/Castle Tileset.png</File>
-    <File>C:/Users/joshua.double/Documents/Platformer-Group-Project/GroupProject/GroupProject/Content/Soldier.png</File>
+    <File>C:/Users/alexander.niels/Documents/Group Project/GroupProject/GroupProject/Content/Level1.tmx</File>
+    <File>C:/Users/alexander.niels/Documents/Group Project/GroupProject/GroupProject/Content/Castle Tileset.png</File>
+    <File>C:/Users/alexander.niels/Documents/Group Project/GroupProject/GroupProject/Content/Soldier.png</File>
   </SourceFiles>
 </SourceFileCollection>
